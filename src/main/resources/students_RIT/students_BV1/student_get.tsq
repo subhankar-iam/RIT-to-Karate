@@ -1,0 +1,77 @@
+{
+    "editableResource": {
+        "createdTimestamp": "1710710400000",
+        "id": "-55748423:1729ec835f0:-2001",
+        "type": "test_request",
+        "updatedTimestamp": "1710710400000",
+        "updatedUser": "user123",
+        "loggingConfiguration": {
+            "debug": "false",
+            "resultWriterLoggingLevel": "FULL",
+            "writeStubEventsToDB": "false"
+        },
+        "resourceConfig": {
+            "description": "",
+            "name": "",
+            "testTree": {
+                "editableResource": {
+                    "id": "-532551b:16d39a5e030:-5d30",
+                    "selfDescribing": "Publish a message and wait for a response",
+                    "type": "send_request_action",
+                    "version": "1.1",
+                    "loggingConfiguration": {
+                        "debug": "false",
+                        "resultWriterLoggingLevel": "FULL",
+                        "writeStubEventsToDB": "false"
+                    },
+                    "resourceConfig": {
+                        "description": "",
+                        "formatter": "HTTP_Message",
+                        "name": "Text",
+                        "schema": "Text",
+                        "headerMessage": {
+                            "assocfield": "Http Publish",
+                            "meTy": "Message",
+                            "name": "",
+                            "sch": "Http Publish",
+                            "type": "12",
+                            "version": "1.2"
+                        },
+                        "fieldActionGroup": {
+                            "fieldAction": {
+                                "enabled": "true",
+                                "type": "1",
+                                "nestedFieldAction": {
+                                    "anyOrder": "false",
+                                    "enabled": "false",
+                                    "ignoreExtra": "false",
+                                    "ignoreNonPresent": "false",
+                                    "type": "100"
+                                }
+                            }
+                        },
+                        "request": {
+                            "studentDetails": {
+                                "class": "XII",
+                                "roll": 3
+                            }
+                        },
+                        "method": {
+                            "meTy": "String",
+                            "name": "Method",
+                            "sch": "Http Publish",
+                            "type": "7",
+                            "version": "1.2",
+                            "fieldActionGroup": {
+                                "fieldAction": {
+                                    "type": "0",
+                                    "exp": "POST"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

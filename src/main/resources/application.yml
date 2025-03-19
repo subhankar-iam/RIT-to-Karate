@@ -1,0 +1,14 @@
+testgenie:
+  directory:
+    request:
+      path: /students_RIT/students_BV1
+    response:
+      path: /src/test/resources/requests
+      filetype: json
+    features:
+      path: /src/test/resources/features
+
+spring:
+  gemini:
+    api-key: AIzaSyC-Wsr55Pt0ZtfBa4a6PvvvWjbzYywL8Zo
+    url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=
