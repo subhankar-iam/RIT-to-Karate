@@ -1,9 +1,10 @@
 
-Feature: Student API Tests
+Feature: Student Management API
 
   Background:
-    * url 'http://localhost:8080'
+    * url 'http://localhost:8000'
     * header content-type = 'applicatin/json'
+
 
   @API_TESTING
   Scenario: Add a new student
