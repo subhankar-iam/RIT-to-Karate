@@ -1,0 +1,25 @@
+name: Auto PR on Branch Push
+
+on:
+  push:
+    branches:
+      - 'feature/2025'
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Create a Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: release/2025
+          branch: ${{ github.ref_name }}
+          title: "Auto PR: ${{ github.ref_name }}"
+          body: |
+            This PR was created automatically on push to `${{ github.ref_name }}`
+            Review and merge if appropriate.
