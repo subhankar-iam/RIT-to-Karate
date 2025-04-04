@@ -1,10 +1,10 @@
 
+@API_TESTING
 Feature: Student API Tests
 
-  @API_TESTING
   Background:
     * url 'http://localhost:8080'
-    * header content-type = 'applicatin/json'
+    * header Content-Type = 'application/json'
 
   Scenario: Add a new student
     Given path '/add/student/add'
