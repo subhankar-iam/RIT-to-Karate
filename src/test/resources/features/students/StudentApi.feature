@@ -1,27 +1,18 @@
 
-@API_TESTING
-Feature: Student Management API Tests
+Feature: Student API Tests
 
+  @API_TESTING
   Background:
     * def baseUrl = 'http://localhost:8080'
-    * header Content-Type = 'applicatin/json'
-    * def configure =
-    """
-    function(){
-       // Additional configurations can be placed here (e.g., MongoDB connection, Kafka setup)
-       return {};
-    }
-    """
-    * def config = configure()
+    * def headerContent = read('classpath:features/headers/content_type.json')
+    * configure headers = headerContent
 
-  @add_student
   Scenario: Add a new student
     Given path '/add/student/add'
     And request read('classpath:features/requests/students/add_student.json')
     When method POST
     Then status 201
 
-  @get_student
   Scenario: Get student details
     Given path '/add/student/get'
     And request read('classpath:features/requests/students/get_student.json')
