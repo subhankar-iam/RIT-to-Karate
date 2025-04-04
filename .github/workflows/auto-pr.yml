@@ -1,31 +1,29 @@
-name: Push PR Branch
+name: Auto PR on Branch Push
 
 on:
   push:
     branches:
-      - your-source-branch
+      - 'feature/2025'
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  push:
+  create-pull-request:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout the code
+        uses: actions/checkout@v3
 
-      - name: Make some changes
-        run: |
-          echo "test change" >> test.txt
-          git config user.name "actions"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "automated update" || echo "nothing to commit"
-
-      - name: Push to feature branch
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-        run: |
-          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/subhankar-iam/RIT-to-Karate.git
-          git push origin HEAD:refs/heads/feature/2025 --force-with-lease
+      - name: Create a Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: release/2025
+          branch: ${{ github.ref_name }}
+          title: "Auto PR: ${{ github.ref_name }}"
+          body: |
+            This PR was created automatically on push to `${{ github.ref_name }}`
+            Review and merge if appropriate.
