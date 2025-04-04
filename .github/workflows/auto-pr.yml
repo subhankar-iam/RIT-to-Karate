@@ -17,12 +17,31 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v3
 
-      - name: Create PR if not exists
+      - name: Debug head and repo info
         run: |
-          gh pr list --head "${{ github.ref_name }}" --base "release/2025" --json number --jq '.[0]' | grep -q null \
-            && gh pr create --base release/2025 --head "${{ github.ref_name }}" \
-                --title "Auto PR: ${{ github.ref_name }}" \
-                --body "This PR was created automatically on push to `${{ github.ref_name }}`" \
-            || echo "PR already exists."
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Repo: ${{ github.repository }}"
+          echo "GH CLI version:"
+          gh --version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create PR if it doesn't exist
+        run: |
+          set -e
+          echo "Checking if PR exists from '${{ github.ref_name }}' to 'release/2025'..."
+          PR_EXISTS=$(gh pr list --head "${{ github.ref_name }}" --base "release/2025" --json number --jq 'length')
+          echo "PR_EXISTS: $PR_EXISTS"
+
+          if [[ "$PR_EXISTS" == "0" ]]; then
+            echo "Creating PR..."
+            gh pr create \
+              --base release/2025 \
+              --head "${{ github.ref_name }}" \
+              --title "Auto PR: ${{ github.ref_name }}" \
+              --body "This PR was created automatically on push to \`${{ github.ref_name }}\`"
+          else
+            echo "✅ PR already exists, skipping creation."
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
