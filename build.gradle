@@ -33,7 +33,6 @@ tasks.register('CopyKarateReports'){
 
     doFirst{
         try{
-
             tasks.getByName('test').execute()
         }catch(Exception e){
             println("Test failed ${e.message}")
@@ -42,10 +41,10 @@ tasks.register('CopyKarateReports'){
 
     doLast{
         def reportDir = file("$rootDir/docs")
-        if(reportDir.exists()){
-            reportDir.deleteDir()
+        if(!reportDir.exists()){
+            // reportDir.deleteDir()
+            reportDir.mkdirs()
         }
-        reportDir.mkdirs()
         copy {
             from "$buildDir/karate-reports"
             into "$reportDir"
