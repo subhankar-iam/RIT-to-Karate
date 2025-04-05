@@ -27,4 +27,40 @@ dependencies {
 
 test {
     useJUnitPlatform()
+
+}
+
+tasks.register('karateTest', Test) {
+    useJUnitPlatform()
+
+    include '**/KarateRunner*.class'
+
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+
+    ignoreFailures = true
+    reports {
+        html.required = true
+        junitXml.required = true
+    }
+    ignoreFailures = true
+}
+
+
+
+tasks.create('copyKarateReports'){
+    dependsOn 'karateTest'
+    doLast{
+        def resultDir = file("$rootDir/docs")
+        if(resultDir.exists()){
+            resultDir.deleteDir()
+        }
+        resultDir.mkdirs()
+
+        copy{
+            from "$buildDir/karate-reports"
+            into resultDir
+            rename('karte-summary.htm','index.html')
+        }
+    }
 }
