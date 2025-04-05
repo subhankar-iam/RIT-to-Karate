@@ -42,7 +42,7 @@ public class VertexAIUtil {
                              "text": "${prompt}"
                            }
                          ]
-                        }
+                        }   
                   }
                 """.replace("${prompt}", prompt);
 

@@ -28,3 +28,28 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+tasks.register('CopyKarateReports'){
+
+    doFirst{
+        try{
+            tasks.getByName('test').execute()
+        }catch(Exception e){
+            println("Test failed ${e.message}")
+        }
+    }
+
+    doLast{
+        def reportDir = file("$rootDir/docs")
+        if(!reportDir.exists()){
+            // reportDir.deleteDir()
+            reportDir.mkdirs()
+        }
+        copy {
+            from "$buildDir/karate-reports"
+            into "$reportDir"
+            rename ('karate-summary.html','index.html')
+        }
+    }
+
+}
